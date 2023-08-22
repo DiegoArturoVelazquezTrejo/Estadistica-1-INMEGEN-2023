@@ -1,5 +1,5 @@
 FROM rocker/verse:4.2.2
-MAINTAINER Diego Velazquez Trejo "velazquez@ciencias.unam.mx"
+MAINTAINER Alfredo Garbuno Iñigo "alfredo.garbuno@itam.mx"
 
 # Lets declare some user variables =============================================
 ENV RSTUDIO_USER rstudio
