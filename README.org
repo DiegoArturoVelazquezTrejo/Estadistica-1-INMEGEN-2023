@@ -20,19 +20,23 @@
     
 * Introducción                                                       :github:
 
-Este es el repositorio con el contenido del curso en *Aprendizaje Estadístico*
-ofrecido a estudiantes de semestres avanzados en las licenciaturas de
-matemáticas aplicadas, ciencia de datos, actuaría, economía, etc.
+La estadística es una disciplina esencial en el análisis y la interpretación de datos en una amplia gama de disciplinas. 
+En el Curso de Estadística Básica, exploraremos los conceptos clave que permiten describir, analizar e inferir información a partir de datos. 
+Desde la identificación y clasificación de variables hasta la aplicación de pruebas de hipótesis y análisis de distribuciones, este curso 
+proporcionará las bases para comprender la estadística y su importancia en la toma de decisiones informadas. A lo largo de nuestras sesiones, 
+aprenderemos cómo utilizar herramientas como R para realizar cálculos y crear visualizaciones que nos ayuden a comunicar de manera efectiva los 
+resultados de nuestras análisis. Ya sea que seas nuevo en la estadística o busques consolidar tus conocimientos, este curso te brindará las habilidades 
+necesarias para trabajar con datos de manera confiable y significativa.
 
 * Objetivo
 
-El Aprendizaje Estadístico trata de cómo establecer reglas de asociación al
-observar un conjunto de datos. En este curso estudiaremos las ideas
-fundamentales detrás de las técnicas de aprendizaje modernas e incorporaremos
-conceptos familiares de estadística. El libro de texto será [[cite:James2021]] y
-lo complementaremos con el enfoque de [[cite:Kuhn2013]]. Se estudiarán, además,
-técnicas estadísticas modernas aplicadas a modelado predictivo por medio de
-lecturas que acompañaran el curso.
+El objetivo principal de este curso es proporcionar a los participantes una introducción sólida y accesible a los conceptos 
+fundamentales de la estadística. A través de una combinación de teoría y aplicaciones prácticas, los estudiantes adquirirán las 
+herramientas necesarias para comprender, analizar y presentar datos de manera efectiva. 
+Desde la comprensión de las variables y su relación hasta el uso de pruebas estadísticas y técnicas de inferencia, este curso 
+sentará las bases para una comprensión sólida de la estadística y su aplicación en diversos campos.
+
+
 
 #+REVEAL: split
 
