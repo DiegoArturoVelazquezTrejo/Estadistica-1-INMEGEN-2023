@@ -5,7 +5,7 @@ MAINTAINER Alfredo Garbuno Iñigo "alfredo.garbuno@itam.mx"
 ENV RSTUDIO_USER rstudio
 ENV TARGET_DIR ""
 ENV RUNNING_IN_DOCKER true
-ENV CMDSTAN /home/.cmdstan
+ENV CMDSTAN /root/.cmdstan
 
 # Lets declare the work directory ==============================================
 RUN adduser $RSTUDIO_USER sudo
@@ -28,7 +28,7 @@ RUN tlmgr install amsmath latex-amsmath-dev iftex kvoptions \
     auxhook bigintcalc bitset etexcmds gettitlestring hycolor hyperref \
     intcalc kvdefinekeys letltxmacro pdfescape refcount rerunfilecheck \
     stringenc uniquecounter zapfding pdftexcmds infwarerr epstopdf-pkg mdwtools \
-    awesomebox fontawesome5    
+    awesomebox fontawesome5
 
 # Clean up =====================================================================
 RUN apt-get clean all \
@@ -46,15 +46,6 @@ COPY .Rprofile .Rprofile
 COPY renv/activate.R renv/activate.R
 COPY renv/settings.dcf renv/settings.dcf
 RUN install2.r --error rmarkdown languageserver
-
-WORKDIR /home/.cmdstan
-
-RUN wget --progress=dot:mega https://github.com/stan-dev/cmdstan/releases/download/v2.30.1/cmdstan-2.30.1.tar.gz \ 
- && tar -zxpf cmdstan-2.30.1.tar.gz \
- && ln -s cmdstan-2.30.1 .cmdstan \
- && cd .cmdstan; make build 
-
-WORKDIR /home/$RSTUDIO_USER/
 
 RUN R -e "renv::restore()"
 RUN rm -rf renv.lock .Rprofile renv
