@@ -15,7 +15,7 @@
 
 #El objetivo del estudio es estimar la proporción \(p\) de insectos en la población total 
 #que está infectada por el patógeno. Utilizando la muestra de 100 insectos, los investigadores 
-#obtuvieron que 25 de ellos estaban infectados (\(X = 1\)).
+#obtuvieron que 25 de ellos estaban infectados (\(X = 1\))
 
 n <- 100 
 muestra <- sample(c(rep(1, 25), rep(0, 75)))
@@ -27,11 +27,13 @@ muestra
 #**Preguntas:**
 
 #  1. ¿Cuál es la proporción muestral de insectos infectados basada en los datos observados?
-
+proporcion_muestral <- sum(muestra)/n
+proporcion_muestral
 
 #  2. Utilizando la proporción muestral como estimador, ¿cuál es una estimación puntual de la 
 #  proporción \(p\) de insectos infectados en la población completa?
-
+estimacion_p <- sum(muestra) / 100 
+estimacion_p
 # Como vimos en clase, el estimador es # 1's / n 
 
 
@@ -41,7 +43,7 @@ muestra
 # Fórmula: estimación-puntual +- Z * sqrt(estimación-puntual * (1 - estimación-puntual) / n)
 # Donde Z es el valor de una distribución normal estándar para un nivel de confianza del 95% = 1.96 (aproximadamente)
 
-z <- qnorm(0.975)
+z <- qnorm(0.975) # 1 - alpha/2 , alpha = 0.05
 intervalo_confianza <- estimacion_p + c(-z, z) * sqrt(estimacion_p * (1 - estimacion_p)/n)
 intervalo_confianza
 
@@ -52,8 +54,16 @@ intervalo_confianza
 # Nueva muestra
 
 # Estimación puntual actualizada de p (alternativamente con el comando mean() )
+nueva_muestra <- c(rep(1, 20000), rep(0, 80000))
+nueva_muestra
 
+# Estimación puntual actualizada de p (alternativamente con el comando mean() )
+estimacion_p_actualizada <- mean(nueva_muestra)
+estimacion_p_actualizada
 
+z <- qnorm(0.975)
+intervalo_confianza_actualizado <- estimacion_p_actualizada + c(-z, z) * sqrt(estimacion_p_actualizada * (1 - estimacion_p_actualizada)/100000)
+intervalo_confianza_actualizado
 
 #**Problema en Genética: Mutación Genética**
 
@@ -101,9 +111,13 @@ grupo_100 <- sample(datos, 100, replace = FALSE)
 # seleccionado al azar experimente una mejoría significativa como resultado de tomar la medicina es del 40%.
 
 #1. ¿Cuál es la probabilidad de que un paciente seleccionado al azar experimente una mejoría significativa como resultado de tomar la medicina?
-
+p <- 0.4 
+probabilidad_mejoria <- p 
 
 #2. Si se seleccionan aleatoriamente 50 pacientes y se les administra la medicina, ¿cuál es la probabilidad de que al menos 20 de ellos experimenten una mejoría significativa?
+n <- 50 
+probabilidad_mejoria_20 <- 1 - pbinom(19, n, probabilidad_mejoria)
+probabilidad_mejoria_20
 
 #3. ¿Cuál es la probabilidad de que exactamente 15 de los pacientes experimenten una mejoría significativa?
 
