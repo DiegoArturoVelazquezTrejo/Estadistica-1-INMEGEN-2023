@@ -1,0 +1,66 @@
+---
+title: "Teorema central"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Toerema Central del Límite 
+```{r}
+# Instala y carga el paquete necesario
+#install.packages("ggplot2")
+library(ggplot2)
+
+# Función de simulación
+simular_dados <- function(n) {
+    # Número de simulaciones
+    num_simulaciones <- 500
+    
+    # Matriz para almacenar los resultados
+    resultados <- matrix(nrow = num_simulaciones, ncol = n)
+
+
+    # Llena la matriz con lanzamientos de dado
+    for (i in 1:num_simulaciones) {
+        resultados[i, ] <- sample(1:6, n, replace = TRUE)
+    }
+    
+    # Calcula el promedio de cada fila
+    promedios <- rowMeans(resultados)
+
+    # Aplicamos teorema central del límite
+    promedios <- (promedios - 3.5) / sqrt(35/12/n)
+    
+    # Crea un histograma de los promedios
+    plot <- ggplot(data.frame(promedios), aes(x = promedios)) + 
+        geom_histogram(aes(y = ..density..), bins = 30, fill = "skyblue", color = "black") + 
+        geom_density(color = "red") + 
+        labs(title = paste("Distribución de los promedios con", n, "lanzamientos"),
+            x = "Promedio", 
+            y = "Densidad") + 
+        theme_minimal()
+    print(plot)
+    return(promedios)
+}
+
+# Prueba la función con diferentes valores de n
+promedios1 <- simular_dados(1)
+simular_dados(3)
+simular_dados(30)
+simular_dados(100)
+simular_dados(1000)
+simular_dados(10000)
+promedios2 <- simular_dados(100000)
+
+# Vamos a realizar una prueba de hipótesis de shapiro-wilk para ver si los datos siguen una distribución normal
+shapiro.test(promedios1)
+# Podemos observar que p > 0.05 por lo que rechazamos la hipótesis nula de que los datos siguen una distribución normal
+# En conclusión, los datos no siguen una distribución normal
+shapiro.test(promedios2)
+
+# Podemos observar p > 0.05 por lo que no tenemos evidencia para rechazar la hipótesis nula de que los datos siguen una distribución normal
+# En conclusión, los datos siguen una distribución normal
+
+```

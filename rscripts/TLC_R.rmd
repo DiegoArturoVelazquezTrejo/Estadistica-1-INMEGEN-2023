@@ -1,0 +1,74 @@
+---
+title: "Ejercicios TLC en R"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## TLC en R
+
+# Problema 1 
+
+Tasa de crecimiento de células en cultivo
+
+Contexto: En un laboratorio de biología celular, se estudia la tasa de crecimiento de células de una planta bajo diferentes condiciones de iluminación. Debido a variaciones naturales y a factores no controlados, la tasa de crecimiento no sigue una distribución normal. Se ha observado que, en condiciones estándar, las células tienen una tasa de crecimiento medio de 100 células por hora con una desviación estándar de 20 células.
+
+Pregunta: Si se estudian 50 cultivos diferentes bajo las mismas condiciones, ¿cuál es la probabilidad de que la tasa promedio de crecimiento de estos cultivos sea superior a 105 células por hora?
+
+Solución: 
+
+Dado que tenemos una muestra grande ($ n = 50 $), podemos aplicar el Teorema del Límite Central para aproximarnos a una distribución normal.
+
+Para calcular la probabilidad buscada, primero encontramos el valor $ Z $:
+
+\[
+Z = \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}}
+\]
+
+Sustituyendo los valores:
+
+\[
+Z = \frac{105 - 100}{\frac{20}{\sqrt{50}}}
+\]
+
+```{r}
+# Parámetros del problema
+mu <- 100
+sigma <- 20
+n <- 50
+x_bar <- 105
+
+# Cálculo usando TLC
+z <- (x_bar - mu) / (sigma / sqrt(n))
+
+# Probabilidad usando función pnorm (función de distribución acumulada para distribución normal)
+prob <- 1 - pnorm(z)
+prob
+```
+
+# Problema 2
+
+Contexto: Estudio sobre el metabolismo basal de niños
+
+Se lleva a cabo un estudio sobre el metabolismo basal de niños en una región específica. Dada la gran cantidad de niños en la población, resulta inviable medir a cada uno. En su lugar, se decide tomar muestras aleatorias de 40 niños cada semana durante 20 semanas. Se sabe que el metabolismo basal de estos niños, medido en calorías quemadas por hora, tiene una media general de 1500 cal y una desviación estándar de 200 cal. Queremos estudiar la distribución de la media muestral de las tasas metabólicas y determinar la probabilidad de que el metabolismo basal medio de una muestra sea mayor que 1550 cal.
+
+
+
+
+```{r}
+# Parámetros
+mu <- 1500       # media poblacional (calorías por hora)
+sigma <- 200     # desviación estándar poblacional (calorías por hora)
+n <- 40          # tamaño de la muestra
+
+# Cálculo de Z para media muestral = 1550
+z <- (1550 - mu) / (sigma / sqrt(n))
+
+# Probabilidad de que Z sea mayor que el valor calculado
+prob <- 1 - pnorm(z)
+
+print(paste("La probabilidad de que la media muestral sea mayor que 1550 cal es:", round(prob, 3)))
+
+```
