@@ -9,6 +9,51 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Pruebas de hipótesis 
 
+---
+
+**Introducción a las Pruebas de Hipótesis**
+
+**Definición**:
+Una prueba de hipótesis es un procedimiento estadístico que evalúa dos afirmaciones sobre una población 
+para determinar cuál es más consistente con la muestra observada.
+---
+
+**Componentes de una Prueba de Hipótesis**
+
+1. **Hipótesis Nula ( \( H_0 \) )**: Es una afirmación sobre un parámetro poblacional que generalmente representa la idea de "no efecto" o "status quo".
+
+2. **Hipótesis Alternativa ( \( H_1 \) o \( H_a \) )**: Representa lo que el investigador quiere probar o demostrar.
+
+3. **Estadístico de Prueba**: Valor calculado a partir de la muestra que se utiliza para decidir si rechazar o no la hipótesis nula.
+
+4. **Nivel de Significancia ( \( \alpha \) )**: Es la probabilidad de rechazar la hipótesis nula cuando en realidad es verdadera.
+
+---
+
+**Objetivo de las Pruebas de Hipótesis**
+
+El objetivo principal de una prueba de hipótesis es ayudar al investigador a decidir entre dos hipótesis opuestas utilizando los datos de la muestra.
+
+---
+Los errores tipo I y tipo II son conceptos fundamentales en pruebas de hipótesis. Son dos tipos de errores que pueden ocurrir al tomar una decisión basada en resultados de una prueba de hipótesis. Aquí te detallo cada uno:
+
+1. **Error Tipo I (Falso Positivo)**:
+    - Ocurre cuando rechazamos la hipótesis nula \( H_0 \) cuando en realidad es verdadera.
+    - Es también conocido como un "falso positivo" porque estamos incorrectamente identificando un efecto que no existe.
+    - La probabilidad de cometer un error tipo I se denota por \( \alpha \), y es igual al nivel de significancia establecido para la prueba. Por ejemplo, si se establece un nivel de significancia del 5% (\( \alpha = 0.05 \)), existe un 5% de probabilidad de cometer un error tipo I.
+
+2. **Error Tipo II (Falso Negativo)**:
+    - Ocurre cuando no rechazamos la hipótesis nula \( H_0 \) cuando en realidad la hipótesis alternativa \( H_a \) es verdadera.
+    - Es también conocido como un "falso negativo" porque estamos fallando en identificar un efecto que sí existe.
+    - La probabilidad de cometer un error tipo II se denota por \( \beta \). El poder estadístico de una prueba, que se denota como \( 1 - \beta \), es la probabilidad de rechazar correctamente \( H_0 \) cuando \( H_a \) es verdadera.
+
+---
+
+**Ejemplo**:
+Supongamos que la nueva prueba se utiliza para detectar una forma temprana de cáncer. 
+- Si la prueba incurre en un **error tipo I**, un paciente sin cáncer podría ser diagnosticado como si tuviera cáncer, llevando a tratamientos como quimioterapia o cirugías innecesarias.
+- Si la prueba incurre en un **error tipo II**, un paciente con una forma temprana de cáncer podría no recibir tratamiento, permitiendo que el cáncer progrese.
+
 ```{r}
 
 
