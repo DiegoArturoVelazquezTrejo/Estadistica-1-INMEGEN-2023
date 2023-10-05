@@ -1,0 +1,115 @@
+---
+title: "Pruebas de hipótesis"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Pruebas de hipótesis 
+
+```{r}
+
+
+# Generar datos aleatorios
+datos_uniforme <- runif(100, min = 0, max = 1)
+datos_binomial <- rbinom(100, size = 10, prob = 0.5)
+datos_poisson <- rpois(100, lambda = 5)
+datos_normal <- rnorm(100, mean = 0, sd = 1)
+datos_gamma <- rgamma(100, shape = 2, rate = 1)
+
+
+# Realizar la prueba de Shapiro-Wilk
+resultado_uniforme <- shapiro.test(datos_uniforme)
+resultado_binomial <- shapiro.test(datos_binomial)
+resultado_poisson <- shapiro.test(datos_poisson)
+resultado_normal <- shapiro.test(datos_normal)
+resultado_gamma <- shapiro.test(datos_gamma)
+
+# Mostrar los resultados
+print("Resultado para datos uniformes:")
+print(resultado_uniforme)
+
+print("Resultado para datos binomiales:")
+print(resultado_binomial)
+
+print("Resultado para datos de Poisson:")
+print(resultado_poisson)
+
+print("Resultado para datos normales:")
+print(resultado_normal)
+
+print("Resultado para datos gamma:")
+print(resultado_gamma)
+
+
+# En la práctica, "two-sided" significa que estás considerando desviaciones extremas en ambas colas de la distribución para tomar tu decisión. Esto es relevante porque te permite detectar si tus datos se desvían significativamente de una distribución normal, ya sea que tengan colas más pesadas o más ligeras que una distribución normal.
+
+
+
+```
+
+## Pruebas de hipótesis (Kolmogorov Smirnov)
+
+Sensibilidad de la Prueba
+La prueba de Kolmogorov-Smirnov es bastante sensible a desviaciones de la distribución teórica. Pequeñas fluctuaciones en la muestra pueden llevar a un rechazo de la hipótesis nula.
+
+```{r}
+# Generar datos aleatorios
+datos_uniforme <- runif(100, min = 0, max = 1)
+datos_gamma <- rgamma(100, shape = 2, rate = 1)
+datos_poisson <- rpois(100, lambda = 5)
+datos_binomial <- rbinom(100, size = 10, prob = 0.5)
+
+# Realizar la prueba de Kolmogorov-Smirnov para verificar si los datos son uniformes
+ks_uniforme <- ks.test(datos_uniforme, "punif", min = 0, max = 1)
+ks_gamma <- ks.test(datos_gamma, "pgamma", shape = 2, rate = 1)
+ks_poisson <- ks.test(datos_poisson, "ppois", lambda = 5)
+ks_binomial <- ks.test(datos_binomial, "pbinom", size = 10, prob = 0.5)
+
+# Mostrar los resultados
+print("Resultado de KS para datos uniformes:")
+print(ks_uniforme)
+
+print("Resultado de KS para datos gamma:")
+print(ks_gamma)
+
+# Variables aleatorias discretas 
+
+print("Resultado de KS para datos de Poisson:")
+print(ks_poisson)
+
+print("Resultado de KS para datos binomiales:")
+print(ks_binomial)
+
+# ------------------------------------------------
+# ¿Qué acaba de pasar?
+# ------------------------------------------------
+
+# Caso corregido: para variables discretas 
+
+# Generar datos aleatorios de Poisson
+datos_poisson <- rpois(1000, lambda = 5)
+
+# Crear una tabla de frecuencias
+tabla_frec_poisson <- table(datos_poisson)
+
+# Convertir los nombres de la tabla a números
+nombres_numericos <- as.numeric(names(tabla_frec_poisson))
+
+# Calcular las probabilidades teóricas para cada valor único en la muestra
+prob_teoricas <- dpois(nombres_numericos, lambda = 5)
+
+# Normalizar las probabilidades para que sumen a 1
+prob_teoricas <- prob_teoricas / sum(prob_teoricas)
+
+# Realizar la prueba de Chi-cuadrado
+chi_poisson <- chisq.test(tabla_frec_poisson, p = prob_teoricas)
+
+# La advertencia "Chi-squared approximation may be incorrect" generalmente aparece cuando algunas de las frecuencias esperadas son demasiado bajas. La regla general es que todas las frecuencias esperadas deben ser al menos 5 para que la aproximación  χ^2 sea válida.
+
+# Mostrar resultados
+print(chi_poisson)
+
+```
