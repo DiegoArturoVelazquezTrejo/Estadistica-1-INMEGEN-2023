@@ -20,16 +20,30 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Vectores
 vec_numerico <- c(1, 2, 3, 4)
-vec_caracter <- c("a", "b", "c")
+vec_caracter <- c("a", "b", "c", "d")
+
+vector <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
 # Matrices
 matriz <- matrix(c(1, 2, 3, 4), nrow=2, ncol=2)
+matriz
+
+matriz <- matrix(c(1,2,3,4,5,6,7,8,9), nrow=3, ncol=3)
+matriz
+
+# Transpuesta de matriz 
+(matriz * t(matriz) + matriz)**2
+
 
 # Listas
 lista <- list(vec_numerico, matriz)
 
 # Data Frames
 df <- data.frame(vec_numerico, vec_caracter)
+# Modificamos nombre de columnas 
+colnames(df) <- c("numeros", "letras")
+View(df)
+
 
 # Factores
 factor_var <- factor(c("manzana", "banana", "manzana"))
@@ -38,26 +52,70 @@ factor_var <- factor(c("manzana", "banana", "manzana"))
 
 # Aritméticos
 suma <- 1 + 2
+print(suma)
 resta <- 4 - 1
+print(resta)
 mult <- 3 * 3
 div <- 4 / 2
+pot <- 2^3
+pot <- 2**3
+raiz <- sqrt(100)
 
 # Lógicos
 y_logico <- TRUE & FALSE
 o_logico <- TRUE | FALSE
 
+# Conjunción (and) utilizamos &
+rresultado <- (5 < 7) & (1 < 2) & (4 == 4)
+# Disyunción (or) utilizamos | 
+(9 > 11) | (3 == 4) | (1 > 2)
+
+((3 ==4) & (1 > 2)) | (10 < 20)
+(3 ==4) & ((1 > 2) | (10 < 20))
+datos[(datos$edad < 30) & (datos$sexo == "H") & (datos$diabetes == FALSE)]
+
+3 + 4 * 6 
+(3 + 4) * 6
+
 # Relacionales
 igual <- (1 == 2)
 mayor <- (5 > 3)
+
+#   Declaración de variables
+
+# Vamos a definir las variables asociadas al dx de diabetes en nuestros pacientes 
+dx_diabetes_h <- c(FALSE, TRUE, TRUE, FALSE, TRUE)
+dx_diabetes_m <- c(FALSE, TRUE, TRUE, FALSE, TRUE)
+
+# Ahora, definimos la edad 
+edad <- c(25, 30, 35, 40, 45)
 
 # --- Constantes y funciones incorporadas ---
 pi_val <- pi  # Constante pi
 sqrt_val <- sqrt(4)  # Raíz cuadrada
 
-
 # Módulo 3: Control de Flujo
 
 # --- Condicionales ---
+
+
+edad <- 10
+
+if(edad < 20){
+    print("Menor de edad")
+}else if(edad == 21){
+    print("Mayor de edad mundial")
+}else{
+    print("Viejo")
+}
+
+edad <- 30
+if(edad == 20){
+    print("Veinte")
+}else{
+    print("No pasó")
+}
+
 
 if (igual) {
     print("Son iguales")
@@ -70,9 +128,24 @@ if (igual) {
 # --- Bucles ---
 
 # Bucle For
-for (i in 1:5) {
-    print(i)
+arreglo <- c(10,9,8,7,6,5,4,3,2,1)
+
+contador <- 0
+for (i in arreglo) {
+    contador <- contador + i**2
 }
+
+# Para consultar la dimensión de una lista, length
+lista <- c(1,2,3,4,4)
+length(lista)
+
+# Si deseo extraer el valor en una posición en particular
+lista[3]
+
+for(i in 1:length(arreglo)){
+    print(arreglo[i])
+}
+
 
 # Bucle While
 contador <- 0
@@ -192,7 +265,7 @@ df <- data.frame(
 df_nombre <- df$Nombre  # Otra forma: df[,"Nombre"]
 
 # Filtrar registros
-df_filtrado <- df[df$Edad > 25, ]
+df_filtrado <- df[(df$Edad > 25), ]
 
 # Añadir una nueva columna
 df$Puesto <- c("Ingeniero", "Analista", "Gerente")
