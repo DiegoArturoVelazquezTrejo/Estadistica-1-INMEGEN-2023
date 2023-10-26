@@ -1,0 +1,420 @@
+---
+title: "R INtro"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introducción a la programación en R
+
+
+
+
+```{r}
+
+# Módulo 2: Elementos Básicos de R
+
+# --- Variables y Tipos de Datos ---
+
+# Vectores
+vec_numerico <- c(1, 2, 3, 4)
+vec_caracter <- c("a", "b", "c")
+
+# Matrices
+matriz <- matrix(c(1, 2, 3, 4), nrow=2, ncol=2)
+
+# Listas
+lista <- list(vec_numerico, matriz)
+
+# Data Frames
+df <- data.frame(vec_numerico, vec_caracter)
+
+# Factores
+factor_var <- factor(c("manzana", "banana", "manzana"))
+
+# --- Operadores ---
+
+# Aritméticos
+suma <- 1 + 2
+resta <- 4 - 1
+mult <- 3 * 3
+div <- 4 / 2
+
+# Lógicos
+y_logico <- TRUE & FALSE
+o_logico <- TRUE | FALSE
+
+# Relacionales
+igual <- (1 == 2)
+mayor <- (5 > 3)
+
+# --- Constantes y funciones incorporadas ---
+pi_val <- pi  # Constante pi
+sqrt_val <- sqrt(4)  # Raíz cuadrada
+
+
+# Módulo 3: Control de Flujo
+
+# --- Condicionales ---
+
+if (igual) {
+    print("Son iguales")
+} else if (mayor) {
+    print("Es mayor")
+} else {
+    print("Ninguno de los anteriores")
+}
+
+# --- Bucles ---
+
+# Bucle For
+for (i in 1:5) {
+    print(i)
+}
+
+# Bucle While
+contador <- 0
+while (contador < 5) {
+    print(contador)
+    contador <- contador + 1
+}
+
+# --- Controles de Bucle ---
+for (i in 1:5) {
+    if (i == 3) {
+        next  # Omite la iteración cuando i es 3
+    }
+    print(i)
+}
+
+# --- Funciones de aplicado ---
+sapply(vec_numerico, sqrt)  # Raíz cuadrada de cada elemento
+
+
+# Módulo 4: Funciones y Paquetes
+
+# --- Creación de Funciones ---
+
+funcion_ejemplo <- function(a, b) {
+    return(a + b)
+}
+
+# --- Ámbito de las Variables ---
+variable_global <- 10
+
+funcion_ambito <- function() {
+    variable_local <- 5
+    print(variable_global + variable_local)
+}
+
+
+# ------------------------------
+# Módulo 2: Funciones en R
+# ------------------------------
+
+# Definición Básica de una Función
+sumar <- function(a, b) {
+    return(a + b)
+}
+
+# Uso de la función sumar
+resultado_suma <- sumar(3, 4)  # Devuelve 7
+
+# Función con argumentos por defecto
+multiplicar <- function(a, b=1) {
+  return(a * b)
+}
+
+# Uso de la función multiplicar
+resultado_multiplicacion1 <- multiplicar(3, 2)  # Devuelve 6
+resultado_multiplicacion2 <- multiplicar(3)     # Devuelve 3, ya que b=1 por defecto
+
+# Función para calcular factorial (Ejemplo recursivo)
+factorial_func <- function(n) {
+    if (n == 0) {
+        return(1)
+    }
+  return(n * factorial_func(n - 1))
+}
+
+# Uso de la función factorial_func
+resultado_factorial <- factorial_func(5)  # Devuelve 120
+
+# ------------------------------
+# Módulo 3: Estructuras de Control
+# ------------------------------
+
+# Uso de if-else
+x <- 10
+if (x > 5) {
+    print("x es mayor que 5")
+} else {
+    print("x es menor o igual a 5")
+}
+
+# Uso de for loop
+for (i in 1:5) {
+    print(paste("Iteración", i))
+}
+
+# Uso de while loop
+contador <- 0
+while (contador < 5) {
+    print(paste("Contador =", contador))
+    contador <- contador + 1
+}
+
+# Uso de break y next
+for (i in 1:10) {
+    if (i %% 2 == 0) {
+        next  # Salta a la siguiente iteración
+    }
+    if (i >= 7) {
+        break  # Rompe el ciclo
+    }
+    print(paste("Número", i))
+}
+
+# ------------------------------
+# Módulo 4: Manipulación de Datos
+# ------------------------------
+
+# Crear un DataFrame
+df <- data.frame(
+    Nombre = c("Ana", "Bob", "Carlos"),
+    Edad = c(25, 30, 22),
+    Salario = c(50000, 60000, 45000)
+)
+
+# Seleccionar columnas
+df_nombre <- df$Nombre  # Otra forma: df[,"Nombre"]
+
+# Filtrar registros
+df_filtrado <- df[df$Edad > 25, ]
+
+# Añadir una nueva columna
+df$Puesto <- c("Ingeniero", "Analista", "Gerente")
+
+# Ordenar DataFrame por Salario
+df_ordenado <- df[order(-df$Salario), ]
+
+# Funciones de agregación
+media_edad <- mean(df$Edad)
+suma_salario <- sum(df$Salario)
+
+# Uso de la función apply para aplicar una función a cada fila o columna
+# En este caso, calculamos la longitud de cada nombre
+df$LongitudNombre <- apply(df[, "Nombre", drop=FALSE], 1, function(x) nchar(as.character(x)))
+
+# Ejemplo de uso de la función tapply para aplicar una función a subgrupos
+# Aquí calculamos la media de Edad por Puesto
+media_edad_por_puesto <- tapply(df$Edad, df$Puesto, mean)
+
+# Módulo Adicional: Aplicar Funciones a un DataFrame
+
+# --- Leer Base de Datos ---
+# Supongamos que la base de datos se llama 'base_datos.csv'
+# Descomentar la siguiente línea para leer la base de datos
+# df <- read.csv("base_datos.csv")
+
+# Crear un DataFrame de ejemplo
+# Supongamos que tenemos una columna de tiempo, una categórica y una numérica
+df <- data.frame(
+    tiempo = as.POSIXct(c("2022-01-01 12:01:01", "2022-01-01 13:01:01", "2022-01-02 12:01:01"), tz="UTC"),
+    categoria = c("A", "B", "A"),
+    numero = c(1, 2, 3)
+)
+
+# --- Estandarización de Variables ---
+
+# Variable de Tiempo: Convertir a segundos desde la fecha mínima
+estandarizar_tiempo <- function(tiempo) {
+    tiempo_min = min(tiempo)
+    return(as.numeric(difftime(tiempo, tiempo_min, units = "secs")))
+}
+
+# Variable Categórica: Convertir a factores numéricos
+estandarizar_categoria <- function(categoria) {
+    return(as.numeric(factor(categoria)))
+}
+
+# Variable Numérica: Z-Score
+estandarizar_numero <- function(numero) {
+    media = mean(numero)
+    desviacion = sd(numero)
+    return((numero - media) / desviacion)
+}
+
+# Aplicar funciones usando sapply()
+df$tiempo_estandarizado = sapply(df$tiempo, function(x) estandarizar_tiempo(df$tiempo))
+df$categoria_estandarizada = sapply(df$categoria, function(x) estandarizar_categoria(df$categoria))
+df$numero_estandarizado = sapply(df$numero, function(x) estandarizar_numero(df$numero))
+
+# Ver el DataFrame después de la estandarización
+print("DataFrame después de la estandarización:")
+print(df)
+
+# Generación y Manejo de Bases de Datos en R
+
+# --- Diseños de bases de datos ---
+
+# Transversal: Datos recogidos en un solo punto en el tiempo
+# Útil para estudios que buscan entender una variable o varias variables en un momento específico.
+transversal_df <- data.frame(
+    ID = c(1, 2, 3),
+    Edad = c(25, 30, 35),
+    Genero = c("F", "M", "F"),
+    Ingreso = c(50000, 60000, 70000)
+)
+
+# Longitudinal: Datos recogidos en múltiples puntos en el tiempo
+# Útil para estudios que buscan entender la evolución de variables en el tiempo.
+longitudinal_df <- data.frame(
+    ID = c(1, 1, 2, 2, 3, 3),
+    Tiempo = c(1, 2, 1, 2, 1, 2),
+    Medicion = c(5.0, 5.1, 6.0, 5.9, 7.0, 7.1)
+)
+
+# --- Formas de presentación de datos ---
+
+# Ancho (Wide)
+# Útil cuando cada sujeto tiene una única observación para cada variable y momento en el tiempo.
+# Facilita la interpretación humana y es útil para ciertos tipos de análisis estadísticos.
+wide_df <- data.frame(
+    ID = c(1, 2, 3),
+    Medicion_T1 = c(5.0, 6.0, 7.0),
+    Medicion_T2 = c(5.1, 5.9, 7.1)
+)
+
+# Largo (Long)
+# Útil cuando se tienen múltiples mediciones para cada sujeto en distintos momentos del tiempo.
+# Facilita el manejo de datos en programación y es útil para otros tipos de análisis estadísticos.
+long_df <- data.frame(
+    ID = c(1, 1, 2, 2, 3, 3),
+    Tiempo = c("T1", "T2", "T1", "T2", "T1", "T2"),
+    Medicion = c(5.0, 5.1, 6.0, 5.9, 7.0, 7.1)
+)
+
+# --- Buenas prácticas para construcción de bases de datos ---
+
+# 1. Utilizar nombres de columnas descriptivos y consistentes
+# Ejemplo: Evitar nombres como V1, V2, etc.
+
+# 2. Utilizar un identificador único para cada observación
+# Ejemplo: columna 'ID' en los data frames anteriores
+
+# 3. Evitar datos faltantes cuando sea posible
+# Si es inevitable, utilizar un código consistente para representarlos (NA, NULL, etc.)
+
+# 4. Mantener un registro o metadata que describa cada variable, tipo de dato, y cualquier codificación utilizada
+
+# 5. Verificar la consistencia de los datos
+# Ejemplo: Asegurarse de que las edades sean números positivos, géneros sean 'M' o 'F', etc.
+
+# 6. Mantener las unidades de medida consistentes para cada variable
+
+# 7. Utilizar formatos de archivo ampliamente aceptados para almacenamiento (CSV, SQL, etc.)
+
+# 8. Si los datos son sensibles, implementar medidas de seguridad adecuadas (encriptación, control de acceso, etc.)
+
+
+# Lectura de distintos formatos 
+
+# Instalar y cargar las librerías necesarias
+# install.packages("readr")       # Para leer archivos CSV
+# install.packages("readxl")      # Para leer archivos XLSX
+# install.packages("jsonlite")    # Para leer archivos JSON
+# install.packages("xml2")        # Para leer archivos XML
+# install.packages("haven")       # Para leer archivos SPSS, Stata, SAS (.sav, .dta, .sas7bdat)
+
+library(readr)
+library(readxl)
+library(jsonlite)
+library(xml2)
+library(haven)
+
+# --------------------------
+# Leer archivos CSV
+# --------------------------
+# Para leer un archivo CSV del directorio actual
+csv_data <- read_csv("datos.csv")
+
+# --------------------------
+# Leer archivos XLSX
+# --------------------------
+# Para leer un archivo Excel del directorio actual
+xlsx_data <- read_excel("datos.xlsx", sheet = "Hoja1")  # Especificar la hoja si es necesario
+
+# --------------------------
+# Leer archivos JSON
+# --------------------------
+# Para leer un archivo JSON del directorio actual
+json_data <- fromJSON("datos.json")
+
+# --------------------------
+# Leer archivos XML
+# --------------------------
+# Para leer un archivo XML del directorio actual
+xml_data_raw <- read_xml("datos.xml")
+# Convertir el XML en un dataframe puede ser más complicado y depende de la estructura del XML
+
+# --------------------------
+# Leer archivos DAT (formato texto plano, generalmente delimitado)
+# --------------------------
+# Para leer un archivo DAT del directorio actual, se puede usar read_table o read_delim
+dat_data <- read_table("datos.dat")
+
+# --------------------------
+# Leer archivos SPSS (.sav), Stata (.dta), SAS (.sas7bdat)
+# --------------------------
+# Leer un archivo SPSS (.sav)
+sav_data <- read_sav("datos.sav")
+
+# Leer un archivo Stata (.dta)
+dta_data <- read_dta("datos.dta")
+
+# Leer un archivo SAS (.sas7bdat)
+sas_data <- read_sas("datos.sas7bdat")
+
+# Re factor de variables que son textos a variables categóricas 
+# Crear un DataFrame de ejemplo con una columna que contiene cadenas específicas
+df <- data.frame(
+    ID = 1:10,
+    Medicamento = c("Se le suministró paracetamol", "Se le suministró aspirina", "Se le dio jarabe", 
+                "Se le suministró paracetamol", "Se le suministró aspirina", "Se le dio jarabe",
+                "Se le suministró paracetamol", "Se le suministró aspirina", "Se le dio jarabe",
+                "Se le suministró paracetamol")
+)
+
+# Imprimir el DataFrame original
+print("DataFrame original:")
+print(df)
+
+# Función para transformar la columna de medicamentos en un factor numérico
+transformar_medicamento <- function(dataframe, columna) {
+    # Crear un vector único para almacenar las cadenas únicas de medicamentos
+    niveles_unicos <- unique(dataframe[[columna]])
+
+    # Mapear las cadenas a números
+    mapeo <- setNames(1:length(niveles_unicos), niveles_unicos)
+
+    # Crear la nueva columna de factores numéricos
+    dataframe[[columna]] <- as.factor(mapvalues(dataframe[[columna]], from = names(mapeo), to = mapeo))
+
+    return(dataframe)
+}
+
+# Cargar la librería necesaria para la función mapvalues
+library(plyr)
+
+# Aplicar la función al DataFrame original
+df_transformado <- transformar_medicamento(df, "Medicamento")
+
+# Imprimir el DataFrame transformado
+print("DataFrame transformado:")
+print(df_transformado)
+
+
+```

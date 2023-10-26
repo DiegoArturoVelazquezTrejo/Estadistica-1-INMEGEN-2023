@@ -55,22 +55,30 @@ Supongamos que la nueva prueba se utiliza para detectar una forma temprana de c�
 - Si la prueba incurre en un **error tipo II**, un paciente con una forma temprana de cáncer podría no recibir tratamiento, permitiendo que el cáncer progrese.
 
 ```{r}
-
+# Shapiro-wilk 
+# H0: Siguen una distribución normal
+# H1: No siguen una distribución normal
 
 # Generar datos aleatorios
+
+# Variables aleatorias discretas
 datos_uniforme <- runif(100, min = 0, max = 1)
+hist(datos_uniforme)
 datos_binomial <- rbinom(100, size = 10, prob = 0.5)
 datos_poisson <- rpois(100, lambda = 5)
+
+# Variables aleatorias continuas
 datos_normal <- rnorm(100, mean = 0, sd = 1)
 datos_gamma <- rgamma(100, shape = 2, rate = 1)
 
 
 # Realizar la prueba de Shapiro-Wilk
-resultado_uniforme <- shapiro.test(datos_uniforme)
+print(shapiro.test(datos_uniforme))
 resultado_binomial <- shapiro.test(datos_binomial)
 resultado_poisson <- shapiro.test(datos_poisson)
 resultado_normal <- shapiro.test(datos_normal)
 resultado_gamma <- shapiro.test(datos_gamma)
+resultado_normal <- shapiro.test(datos_normal)
 
 # Mostrar los resultados
 print("Resultado para datos uniformes:")
@@ -102,15 +110,19 @@ La prueba de Kolmogorov-Smirnov es bastante sensible a desviaciones de la distri
 
 ```{r}
 # Generar datos aleatorios
-datos_uniforme <- runif(100, min = 0, max = 1)
-datos_gamma <- rgamma(100, shape = 2, rate = 1)
+datos_uniforme <- runif(1000, min = 0, max = 1)
+datos_gamma <- rgamma(10000, shape = 2, rate = 1)
+hist(datos_gamma)
 datos_poisson <- rpois(100, lambda = 5)
 datos_binomial <- rbinom(100, size = 10, prob = 0.5)
+
+hist(datos_uniforme)
+hist(datos_gamma)
 
 # Realizar la prueba de Kolmogorov-Smirnov para verificar si los datos son uniformes
 ks_uniforme <- ks.test(datos_uniforme, "punif", min = 0, max = 1)
 ks_gamma <- ks.test(datos_gamma, "pgamma", shape = 2, rate = 1)
-ks_poisson <- ks.test(datos_poisson, "ppois", lambda = 5)
+ks_poisson <- ks.test(datos_poisson, "ppois", lambda = mean(datos_poisson))
 ks_binomial <- ks.test(datos_binomial, "pbinom", size = 10, prob = 0.5)
 
 # Mostrar los resultados
