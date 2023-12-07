@@ -1,0 +1,63 @@
+---
+title: "Estadística"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Regresión Lineal 1
+```{r cars}
+# Cargar librerías necesarias
+library(ggplot2)
+library(car)
+library(MASS)
+
+# Cargar el conjunto de datos 'mtcars'
+data(mtcars)
+
+# Ajustar un modelo de regresión lineal
+# Frame 7: Ajustando un Modelo Lineal en R
+modelo <- lm(mpg ~ wt + hp, data = mtcars)
+
+# Mostrar el resumen del modelo
+# Frame 8: Ejemplo de Salida del Comando summary() en R
+summary(modelo)
+
+# Diagnóstico del modelo
+# Frame 9 y 10: Valor t en Regresión Lineal
+# Frame 11 y 12: Diagnóstico y Validación del Modelo
+
+# Gráficos para diagnóstico del modelo
+par(mfrow = c(2, 2))
+plot(modelo)
+
+# Verificación de la linealidad y homoscedasticidad
+# Gráfico de Residuales vs Valores Ajustados
+ggplot(modelo, aes(.fitted, .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Valores Ajustados", y = "Residuales", title = "Residuales vs Valores Ajustados")
+
+# Prueba de Breusch-Pagan para homoscedasticidad
+ncvTest(modelo)
+
+# Prueba de Durbin-Watson para independencia
+durbinWatsonTest(modelo)
+
+# Verificar multicolinealidad con el VIF
+vif(modelo)
+
+# Prueba de Shapiro-Wilk para normalidad de los residuos
+shapiro.test(resid(modelo))
+
+# Identificación de outliers e influencias indebidas
+# Distancia de Cook
+cutoff <- 4/(nrow(mtcars)-length(modelo$coefficients)-2)
+plot(modelo, which = 4, cook.levels = cutoff)
+
+# Validación Cruzada (requiere métodos adicionales, no cubiertos en este ejemplo simple)
+
+```
+

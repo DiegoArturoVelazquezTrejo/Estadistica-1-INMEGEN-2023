@@ -10,8 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 # Introducción a la programación en R
 
 
-
-
 ```{r}
 
 # Módulo 2: Elementos Básicos de R
@@ -71,8 +69,10 @@ rresultado <- (5 < 7) & (1 < 2) & (4 == 4)
 (9 > 11) | (3 == 4) | (1 > 2)
 
 ((3 ==4) & (1 > 2)) | (10 < 20)
+
 (3 ==4) & ((1 > 2) | (10 < 20))
-datos[(datos$edad < 30) & (datos$sexo == "H") & (datos$diabetes == FALSE)]
+
+# datos[(datos$edad < 30) & (datos$sexo == "H") & (datos$diabetes == FALSE)]
 
 3 + 4 * 6 
 (3 + 4) * 6
@@ -98,15 +98,25 @@ sqrt_val <- sqrt(4)  # Raíz cuadrada
 
 # --- Condicionales ---
 
-
 edad <- 10
 
-if(edad < 20){
-    print("Menor de edad")
-}else if(edad == 21){
-    print("Mayor de edad mundial")
+if( condición [True, False]){
+    // Escribo lo que sucede
 }else{
-    print("Viejo")
+    // Otra cosa 
+}
+
+# Variable: Edad => 0 <= Edad <= 20 implica Categoría 1 
+#           21< Edad <= 30 Implica Categoría 2
+#           31< Edad <= 40 Implica Categoría 3
+# Definir una función que tome como parámetro de entrada la edad y regrese la categoría a la que pertenece
+
+if(edad < 20){
+    return("Categoria1")
+}else if(edad == 21){
+    return("Categoria2")
+}else{
+    return("Categoria3")
 }
 
 edad <- 30
@@ -131,8 +141,33 @@ if (igual) {
 arreglo <- c(10,9,8,7,6,5,4,3,2,1)
 
 contador <- 0
-for (i in arreglo) {
-    contador <- contador + i**2
+for (numero in arreglo) {
+    contador <- contador + 2 * numero
+}
+contador
+
+arreglo <- c(1,2,3,4,5,6,7,8,9,10)
+
+# Variable donde vas a almacenar tu resultado 
+contador <- 1
+for (numero in arreglo) {
+    # Efectuar la operación 
+    contador <- contador + contador * numero 
+    print(contador)
+}
+
+nacionalidades <- c("mexicana", "española", "mexicana", "mexicana", "colombiana", "inglesa")
+# nacionalidades2 => si es mexicana toma 1, si es española toma 2 
+nacionalidades2 <- c()
+for(nacionalidad in nacionalidades){
+    
+    if(nacionalidad == "mexicana" | nacionalidad == "colombiana"){
+        # Agregamos al arreglo un 1 
+        nacionalidades2 <- cbind(nacionalidades2, 1)
+    }else{
+        nacionalidades2 <- cbind(nacionalidades2, 2)
+    }
+
 }
 
 # Para consultar la dimensión de una lista, length
@@ -154,6 +189,27 @@ while (contador < 5) {
     contador <- contador + 1
 }
 
+lista <- c(1,2,3,4,5,6,7,8,9,10)
+# 1**1
+# 1**2 + 2**2
+# 1**2 + 2**2 + 3**2 
+
+# yo quiero sumar a suma_total el número al cuadrado hasta que sea manor a 100 
+indice <- 1 
+suma_total <- 0 
+
+while(suma_total < 100 & indice < 11){
+    numero <- lista[indice]
+    print(paste("suma total: ", suma_total))
+    print(paste("indice: ", indice))
+    suma_total <- suma_total + numero^2
+    indice <- indice +1 
+}
+
+# indice = 8, suma_total = 140 
+# indice = 8, suma_total = 140 
+# indice = 11, suma_total = 385
+
 # --- Controles de Bucle ---
 for (i in 1:5) {
     if (i == 3) {
@@ -161,6 +217,7 @@ for (i in 1:5) {
     }
     print(i)
 }
+
 
 # --- Funciones de aplicado ---
 sapply(vec_numerico, sqrt)  # Raíz cuadrada de cada elemento
@@ -171,6 +228,8 @@ sapply(vec_numerico, sqrt)  # Raíz cuadrada de cada elemento
 # --- Creación de Funciones ---
 
 funcion_ejemplo <- function(a, b) {
+    
+    
     return(a + b)
 }
 
@@ -196,7 +255,7 @@ sumar <- function(a, b) {
 resultado_suma <- sumar(3, 4)  # Devuelve 7
 
 # Función con argumentos por defecto
-multiplicar <- function(a, b=1) {
+multiplicar <- function(a, b=10) {
   return(a * b)
 }
 
@@ -403,10 +462,10 @@ long_df <- data.frame(
 # install.packages("haven")       # Para leer archivos SPSS, Stata, SAS (.sav, .dta, .sas7bdat)
 
 library(readr)
+library(haven)
 library(readxl)
 library(jsonlite)
 library(xml2)
-library(haven)
 
 # --------------------------
 # Leer archivos CSV
